@@ -1,28 +1,52 @@
 @import "tailwindcss";
 
+/* Dark mode follows the .dark class set by the theme script, not the OS alone. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #161513;
   --muted: #3f3c38;
   --subtle: #6a6660;
-  --border: #e4e0d9;
-  --hover: #f3f1ec;
-  --surface: #faf9f6;
+  --border: #e5e7eb;
+  --border-strong: #d6d9de;
+  --hover: #f3f4f6;
+  --surface: #f9fafb;
   --elevated: #ffffff;
   --sidebar: #f9fafb;
-  --code: #f4f2ed;
+  --code: #f4f5f7;
   --code-fg: #1c1a17;
   --accent: #5c4228;
+  --overlay: color-mix(in srgb, #161513 35%, transparent);
   --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
   --ring: color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
+.dark {
+  --background: #101012;
+  --foreground: #f4f3f0;
+  --muted: #c4c1bb;
+  --subtle: #8d8983;
+  --border: #292a2e;
+  --border-strong: #3b3c41;
+  --hover: #1e1f23;
+  --surface: #17181b;
+  --elevated: #1b1c20;
+  --sidebar: #141518;
+  --code: #17181b;
+  --code-fg: #f4f3f0;
+  --accent: #d6b48a;
+  --overlay: color-mix(in srgb, #000000 60%, transparent);
+}
+
 @theme inline {
+  --color-overlay: var(--overlay);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-hover: var(--hover);
   --color-surface: var(--surface);
   --color-elevated: var(--elevated);
@@ -39,13 +63,20 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
   color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
 }
 
 html,
@@ -76,7 +107,12 @@ textarea,
 
 .docs-scroll {
   scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  scrollbar-color: transparent transparent;
+}
+
+.docs-scroll:hover,
+.docs-scroll:focus-within {
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 .docs-scroll::-webkit-scrollbar {
@@ -84,9 +120,15 @@ textarea,
 }
 
 .docs-scroll::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: transparent;
   border-radius: 999px;
   border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.docs-scroll:hover::-webkit-scrollbar-thumb,
+.docs-scroll:focus-within::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
   background-clip: padding-box;
 }
 

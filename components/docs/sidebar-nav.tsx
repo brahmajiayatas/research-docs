@@ -90,14 +90,25 @@ export function SidebarNav({
 
   return (
     <nav aria-label="Documentation" className="flex min-w-0 flex-col gap-5">
-      <label className="block">
+      <label className="relative block">
         <span className="sr-only">Filter pages</span>
+        <svg
+          viewBox="0 0 16 16"
+          className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-subtle"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          aria-hidden="true"
+        >
+          <circle cx="7" cy="7" r="4.25" />
+          <path d="m10.2 10.2 3 3" />
+        </svg>
         <input
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Filter pages"
-          className="w-full rounded-md border border-gray-200 bg-white px-2.5 py-1.5 text-[13px] text-foreground outline-none placeholder:text-subtle"
+          className="h-9 w-full rounded-lg border border-border bg-background pr-2.5 pl-8 text-[13px] text-foreground shadow-sm transition-colors outline-none placeholder:text-subtle hover:border-border-strong focus:border-accent/45"
         />
       </label>
       {visibleSections.length === 0 ? (
@@ -113,18 +124,18 @@ export function SidebarNav({
               <button
                 type="button"
                 onClick={() => toggle(section.title)}
-                className="flex h-8 w-full min-w-0 items-center gap-2  text-left"
+                className="group flex h-8 w-full min-w-0 items-center gap-2 rounded-md text-left"
                 aria-expanded={open}
                 aria-controls={sectionId}
                 title={section.title}
               >
-                <span className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-[0.08em] text-foreground uppercase">
+                <span className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-[0.1em] text-subtle uppercase transition-colors group-hover:text-foreground">
                   {section.title}
                 </span>
                 <svg
                   viewBox="0 0 20 20"
                   className={cn(
-                    "size-3.5 shrink-0 text-subtle transition-transform duration-200",
+                    "size-3.5 shrink-0 text-subtle transition-transform duration-200 group-hover:text-muted",
                     open ? "rotate-90" : "",
                   )}
                   fill="none"
@@ -190,11 +201,11 @@ function NavLink({
       title={item.title}
       onClick={onNavigate}
       className={cn(
-        "flex min-h-8 min-w-0 items-center rounded-r-md border-l-2 py-1.5 pr-2.5 text-[13.5px] leading-5 transition-colors",
+        "flex min-h-9 min-w-0 items-center rounded-r-md border-l-2 py-1.5 pr-2.5 text-[13.5px] leading-5 transition-colors",
         nested ? "pl-3.5" : "pl-2.5",
         active
-          ? "border-accent bg-gray-100 font-medium text-foreground"
-          : "border-transparent text-muted hover:bg-gray-100 hover:text-foreground",
+          ? "border-accent bg-hover font-medium text-foreground"
+          : "border-transparent text-muted hover:bg-hover hover:text-foreground",
       )}
       aria-current={active ? "page" : undefined}
     >

@@ -39,7 +39,7 @@ export function MobileNav({ sections }: { sections: SidebarSection[] }) {
       <button
         ref={triggerRef}
         type="button"
-        className="inline-flex size-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-gray-100 hover:text-foreground lg:hidden"
+        className="inline-flex size-8 items-center justify-center rounded-md text-subtle transition-colors hover:bg-hover hover:text-foreground lg:hidden"
         onClick={() => setOpen(true)}
         aria-label="Open documentation menu"
         aria-expanded={open}
@@ -54,7 +54,7 @@ export function MobileNav({ sections }: { sections: SidebarSection[] }) {
           <div className="fixed inset-0 z-50 lg:hidden">
             <button
               type="button"
-              className="absolute inset-0 bg-foreground/30"
+              className="absolute inset-0 bg-overlay backdrop-blur-[2px]"
               aria-label="Close documentation menu"
               onClick={() => setOpen(false)}
             />
@@ -63,16 +63,16 @@ export function MobileNav({ sections }: { sections: SidebarSection[] }) {
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="absolute inset-y-0 left-0 z-10 flex h-dvh w-[min(20rem,88vw)] flex-col border-r border-gray-200 bg-gray-50"
+              className="absolute inset-y-0 left-0 z-10 flex h-dvh w-[min(20rem,88vw)] flex-col border-r border-border bg-sidebar shadow-xl"
             >
-              <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
+              <div className="flex items-center justify-between border-b border-border px-4 py-4">
                 <div id={titleId}>
                   <Brand compact />
                 </div>
                 <button
                   ref={closeRef}
                   type="button"
-                  className="inline-flex size-8 items-center justify-center rounded-full text-muted hover:bg-gray-100 hover:text-foreground"
+                  className="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-subtle transition-colors hover:bg-hover hover:text-foreground"
                   onClick={() => setOpen(false)}
                   aria-label="Close documentation menu"
                 >
@@ -81,7 +81,7 @@ export function MobileNav({ sections }: { sections: SidebarSection[] }) {
                   </svg>
                 </button>
               </div>
-              <div className="docs-scroll min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 px-3 py-5">
+              <div className="docs-scroll min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto bg-sidebar px-4 py-5">
                 <SidebarNav sections={sections} onNavigate={() => setOpen(false)} />
               </div>
             </div>

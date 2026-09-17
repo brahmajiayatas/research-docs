@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { ContentProtection } from "@/components/docs/content-protection";
+import { ThemeProvider, themeScript } from "@/components/theme/theme-provider";
 import { site } from "@/content/sidebar";
 import "./globals.css";
 
@@ -28,20 +29,33 @@ export const metadata: Metadata = {
   description: site.description,
 };
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#101012" },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // The theme script sets class/color-scheme here before React hydrates.
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background font-sans text-foreground">
+        {/* Runs before paint so the stored theme applies without a flash. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <a
           href="#content"
           className="bg-foreground text-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:absolute focus:top-3 focus:left-3"
         >
           Skip to content
         </a>
-        <ContentProtection>{children}</ContentProtection>
+        <ThemeProvider>
+          <ContentProtection>{children}</ContentProtection>
+        </ThemeProvider>
       </body>
     </html>
   );

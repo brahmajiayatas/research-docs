@@ -4,7 +4,7 @@ import { Brand } from "@/components/docs/brand";
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="border-b border-gray-200 px-4 py-4 lg:px-5">
+      <header className="border-b border-border px-5 py-4 lg:px-8">
         <Brand />
       </header>
       <main id="content" className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">

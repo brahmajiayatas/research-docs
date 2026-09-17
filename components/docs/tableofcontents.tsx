@@ -35,20 +35,20 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
 
   return (
     <nav aria-label="On this page">
-      <p className="mb-3 text-[11px] font-medium tracking-[0.16em] text-subtle uppercase">
+      <p className="mb-3 text-[11px] font-semibold tracking-[0.14em] text-subtle uppercase">
         On this page
       </p>
-      <ul className="space-y-1.5 border-l border-border/80">
+      <ul className="space-y-1 border-l border-border">
         {items.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
               className={cn(
-                "block border-l -ml-px py-0.5 text-[13px] leading-5 transition-colors",
+                "block border-l -ml-px py-1 text-[13px] leading-5 transition-colors",
                 item.depth === 3 ? "pl-6" : "pl-3.5",
                 activeId === item.id
-                  ? "border-accent text-foreground"
-                  : "border-transparent text-muted hover:text-foreground",
+                  ? "border-accent font-medium text-foreground"
+                  : "border-transparent text-muted hover:border-border-strong hover:text-foreground",
               )}
               aria-current={activeId === item.id ? "location" : undefined}
             >
