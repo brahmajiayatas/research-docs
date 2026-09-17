@@ -4,7 +4,51 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
-import type { SidebarSection } from "@/content/sidebar";
+import type { SidebarItem, SidebarSection } from "@/content/sidebar";
+
+function normalizePath(path: string) {
+  if (!path || path === "/") return "/";
+  return path.replace(/\/+$/, "") || "/";
+}
+
+function isActivePath(pathname: string, href: string) {
+  return normalizePath(pathname) === normalizePath(href);
+}
+
+function findParent(items: SidebarItem[], item: SidebarItem) {
+  const href = normalizePath(item.href);
+  let match: SidebarItem | undefined;
+
+  for (const candidate of items) {
+    const parentHref = normalizePath(candidate.href);
+    if (parentHref === "/" || parentHref === href) continue;
+    const depth = parentHref.split("/").filter(Boolean).length;
+    if (depth < 2) continue;
+    if (
+      href.startsWith(`${parentHref}/`) &&
+      (!match || parentHref.length > normalizePath(match.href).length)
+    ) {
+      match = candidate;
+    }
+  }
+
+  return match;
+}
+
+function nestItems(items: SidebarItem[]) {
+  const claimed = new Set(
+    items
+      .filter((item) => findParent(items, item))
+      .map((item) => item.href),
+  );
+
+  return items
+    .filter((item) => !claimed.has(item.href))
+    .map((item) => ({
+      item,
+      children: items.filter((child) => findParent(items, child)?.href === item.href),
+    }));
+}
 
 export function SidebarNav({
   sections,
@@ -45,8 +89,8 @@ export function SidebarNav({
   }
 
   return (
-    <nav aria-label="Documentation" className="space-y-5">
-      <label className="block px-2">
+    <nav aria-label="Documentation" className="flex min-w-0 flex-col gap-5">
+      <label className="block">
         <span className="sr-only">Filter pages</span>
         <input
           type="search"
@@ -57,22 +101,26 @@ export function SidebarNav({
         />
       </label>
       {visibleSections.length === 0 ? (
-        <p className="px-2 text-[13px] text-muted">No matching pages.</p>
+        <p className="px-1 text-[13px] text-muted">No matching pages.</p>
       ) : (
         visibleSections.map((section) => {
           const open = isOpen(section);
           const sectionId = `nav-${section.title.replace(/\s+/g, "-").toLowerCase()}`;
+          const grouped = nestItems(section.items);
 
           return (
-            <div key={section.title}>
+            <div key={section.title} className="min-w-0">
               <button
                 type="button"
                 onClick={() => toggle(section.title)}
-                className="flex w-full items-center justify-between gap-2 px-2 text-left text-[11px] leading-4 font-medium tracking-[0.12em] text-pretty text-subtle uppercase"
+                className="flex h-8 w-full min-w-0 items-center gap-2  text-left"
                 aria-expanded={open}
                 aria-controls={sectionId}
+                title={section.title}
               >
-                {section.title}
+                <span className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-[0.08em] text-foreground uppercase">
+                  {section.title}
+                </span>
                 <svg
                   viewBox="0 0 20 20"
                   className={cn(
@@ -88,30 +136,33 @@ export function SidebarNav({
                 </svg>
               </button>
               {open && (
-                <ul id={sectionId} className="mt-2 space-y-0.5">
-                  {section.items.map((item) => {
-                    const active = pathname === item.href;
-                    return (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          onClick={onNavigate}
-                          className={cn(
-                            "relative block rounded-md px-2.5 py-1.5 text-[13.5px] leading-5 transition-colors",
-                            active
-                              ? "bg-gray-100 font-medium text-foreground"
-                              : "text-muted hover:bg-gray-100 hover:text-foreground",
-                          )}
-                          aria-current={active ? "page" : undefined}
-                        >
-                          {active && (
-                            <span className="absolute inset-y-1.5 left-0 w-0.5 rounded-full bg-accent" />
-                          )}
-                          {item.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
+                <ul
+                  id={sectionId}
+                  className="mt-1 ml-1 flex min-w-0 flex-col gap-0.5 pl-3"
+                >
+                  {grouped.map(({ item, children }) => (
+                    <li key={item.href} className="min-w-0">
+                      <NavLink
+                        item={item}
+                        active={isActivePath(pathname, item.href)}
+                        onNavigate={onNavigate}
+                      />
+                      {children.length > 0 && (
+                        <ul className="mt-0.5 ml-3 flex min-w-0 flex-col gap-0.5">
+                          {children.map((child) => (
+                            <li key={child.href} className="min-w-0">
+                              <NavLink
+                                item={child}
+                                active={isActivePath(pathname, child.href)}
+                                nested
+                                onNavigate={onNavigate}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
@@ -119,5 +170,35 @@ export function SidebarNav({
         })
       )}
     </nav>
+  );
+}
+
+function NavLink({
+  item,
+  active,
+  nested = false,
+  onNavigate,
+}: {
+  item: SidebarItem;
+  active: boolean;
+  nested?: boolean;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      href={item.href}
+      title={item.title}
+      onClick={onNavigate}
+      className={cn(
+        "flex min-h-8 min-w-0 items-center rounded-r-md border-l-2 py-1.5 pr-2.5 text-[13.5px] leading-5 transition-colors",
+        nested ? "pl-3.5" : "pl-2.5",
+        active
+          ? "border-accent bg-gray-100 font-medium text-foreground"
+          : "border-transparent text-muted hover:bg-gray-100 hover:text-foreground",
+      )}
+      aria-current={active ? "page" : undefined}
+    >
+      <span className="min-w-0 truncate">{item.title}</span>
+    </Link>
   );
 }

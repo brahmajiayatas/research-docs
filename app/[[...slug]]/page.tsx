@@ -66,27 +66,27 @@ export default async function Page({
       toc={<TableOfContents items={doc.toc} />}
       pager={<Pager previous={pager.previous} next={pager.next} />}
     >
-      <article className="mx-auto max-w-[42rem]">
-        <Breadcrumbs items={breadcrumbs} />
-        <p className="mb-3 text-[11px] font-medium tracking-[0.18em] text-accent uppercase">
-          {doc.section}
-        </p>
-        <h1 className="font-display text-[2.35rem] leading-[1.15] font-medium tracking-[-0.03em] text-foreground sm:text-[2.75rem]">
-          {doc.title}
-        </h1>
-        {doc.description ? (
-          <p className="mt-5 mb-10 max-w-[38rem] font-display text-[1.35rem] leading-8 text-pretty text-muted italic">
-            {doc.description}
+      <article className="w-full min-w-0">
+        <header className="mb-10">
+          <Breadcrumbs items={breadcrumbs} />
+          <p className="mb-3 truncate text-[11px] font-medium tracking-[0.18em] text-accent uppercase">
+            {doc.section}
           </p>
-        ) : (
-          <div className="mb-10" />
-        )}
+          <h1 className="max-w-full font-display text-[2.35rem] leading-[1.15] font-medium tracking-[-0.03em] text-foreground sm:text-[2.75rem]">
+            {doc.title}
+          </h1>
+          {doc.description ? (
+            <p className="mt-5 max-w-[42rem] font-display text-[1.35rem] leading-8 text-pretty text-muted italic">
+              {doc.description}
+            </p>
+          ) : null}
+        </header>
         {doc.toc.length > 0 && (
-          <div className="mb-10 rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 xl:hidden">
+          <div className="mb-10 max-w-[42rem] rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 xl:hidden">
             <TableOfContents items={doc.toc} />
           </div>
         )}
-        {doc.content}
+        <div className="max-w-[42rem] min-w-0">{doc.content}</div>
       </article>
     </DocsShell>
   );
