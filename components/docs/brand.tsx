@@ -8,14 +8,14 @@ export function Brand({ compact = false }: { compact?: boolean }) {
         A
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-sm font-medium tracking-tight">
-          {site.name}
-        </span>
         {!compact && (
-          <span className="block truncate text-[11px] tracking-[0.16em] text-subtle uppercase">
-            Documentation
+          <span className="block truncate text-sm font-medium tracking-tight">
+            AI-Assisted Divorce Mediation Platform
           </span>
         )}
+        <span className="block truncate text-[11px] tracking-[0.16em] text-subtle uppercase">
+            {site.name}
+        </span>        
       </span>
     </Link>
   );

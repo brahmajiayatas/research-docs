@@ -1,0 +1,36 @@
+---
+title: Important Safety and Legal Design
+description: A jurisdiction-aware, rules-driven, safety-first architecture that separates legal information from legal advice and automated assistance from professional decision-making.
+---
+
+The platform should be built around a jurisdiction-aware, rules-driven, safety-first architecture that separates legal information from legal advice and automated assistance from professional decision-making. The system must never allow a general-purpose AI model to independently interpret or invent laws, calculate legal obligations, or provide definitive legal conclusions.
+
+The core architecture should follow:
+
+> Jurisdiction → Verified Legal Rules → Decision Tree → Case Facts → Calculation Engine → AI Explanation
+
+rather than:
+
+> User Question → LLM → Legal Answer
+
+## Clear Separation of Functions
+
+The platform should maintain strict boundaries between:
+
+1. **Legal Information** — Provides verified, jurisdiction-specific information from approved legal sources.
+2. **Legal Workflow Guidance** — Explains procedural steps, required information, documents, and workflow activities.
+3. **Financial Calculations** — Uses deterministic, jurisdiction-configured calculation engines rather than AI-generated calculations.
+4. **Negotiation Assistance** — Helps users identify differences, communicate positions, and explore mutually acceptable options.
+5. **AI-Generated Suggestions** — Produces neutral summaries, questions, explanations, and draft language clearly identified as AI-assisted.
+6. **Professional Legal Advice** — Reserved for qualified attorneys or other authorized professionals.
+7. **Final Legal Decisions** — Remain with the spouses, their professional advisors, and ultimately the appropriate legal authority or court.
+
+## Safety and Escalation Framework
+
+A dedicated Safety & Escalation Engine should continuously evaluate information throughout the case. Escalation triggers should include domestic violence, threats, coercion, child-safety concerns, financial concealment, complex business ownership, high-value or international assets, cryptocurrency, complex taxation, retirement or pension interests, significant income disparities, high-conflict communication, custody disagreements, and questions outside the platform's verified knowledge.
+
+When a trigger is detected, the platform should pause, restrict, or modify automated mediation, depending on severity. It should explain why professional involvement may be necessary and provide an appropriate pathway to a qualified mediator, attorney, financial professional, or other specialist.
+
+The platform should also maintain confidence thresholds, source/version tracking, audit logs, human-review checkpoints, and fail-safe controls. If the system cannot verify an applicable rule, it should explicitly state that the information is unavailable rather than generate an answer.
+
+This architecture ensures that AI functions as a controlled assistant within a professionally governed divorce workflow—not as an autonomous legal decision-maker

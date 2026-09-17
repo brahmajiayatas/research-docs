@@ -86,7 +86,10 @@ export default async function Page({
             <TableOfContents items={doc.toc} />
           </div>
         )}
-        <div className="max-w-[42rem] min-w-0">{doc.content}</div>
+        {/* Text blocks stay at a readable measure; tables use the full column. */}
+        <div className="min-w-0 [&>*]:max-w-[42rem] [&>div]:max-w-none">
+          {doc.content}
+        </div>
       </article>
     </DocsShell>
   );

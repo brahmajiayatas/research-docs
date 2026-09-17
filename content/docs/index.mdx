@@ -1,31 +1,14 @@
 ---
-title: Introduction
-description: The proposed product is an AI-assisted divorce mediation platform that helps separating couples organize information, identify disputed issues, exchange proposals, understand options, and work toward mutually accepted agreements through a structured digital mediation process.
+title: Product Vision
+description: Guided workflows, automation, AI assistance, secure collaboration, and professional oversight for low-conflict, cooperative, and uncontested divorce cases.
 ---
 
-## Product vision
+The AI-Assisted Divorce Mediation Platform is a secure, structured, and human-supervised digital platform designed to help couples navigate divorce and separation in a more organized, transparent, and collaborative way. The platform brings the major components of the divorce process into one guided environment—from initial onboarding and financial disclosure to parenting plans, negotiation, settlement preparation, document generation, professional review, and post-divorce agreement management.
 
-A useful reference point is [Divorce.ai](https://divorce.ai/how-it-works), which uses guided onboarding and structured workflows to simplify the divorce process. This product can go substantially further by combining decision trees + a controlled/closed AI layer + evidence management + negotiation workflows + human mediator escalation.
+The platform is designed primarily for low-conflict, cooperative, and uncontested divorce cases, where both spouses are willing to communicate, disclose relevant information, and work toward mutually acceptable agreements. AI assists users by organizing information, identifying unresolved issues, summarizing positions, explaining process steps, comparing proposals, generating settlement options, and preparing documents for review.
 
-## Architectural principle
+Safety and professional oversight are fundamental to the platform. Structured screening and decision trees continuously evaluate case conditions and identify situations involving significant conflict, safety concerns, coercion, complex financial matters, custody disputes, or other circumstances requiring human intervention. When appropriate, the platform escalates the case to a qualified mediator, attorney, or other professional.
 
-The important architectural principle should be:
+The platform does not replace legal professionals or courts. Instead, it combines guided workflows, automation, AI assistance, secure collaboration, and professional oversight to make the divorce process more structured, understandable, efficient, and manageable.
 
-**AI assists the mediation process; it does not decide the outcome, provide unauthorized legal advice, or determine what either spouse should accept.**
-
-The system should preserve party self-determination and procedural fairness. For example, California's mediation rules emphasize balanced participation and uncoerced decisions. See [California Courts](https://courts.ca.gov/cms/rules/index/three/rule3_857).
-
-## How this documentation is organized
-
-This documentation is grouped by topic so the original research can be read as a product and technical reference:
-
-- **[Overview](/)** — vision, [positioning](/overview/positioning), and [product principles](/overview/principles)
-- **[Architecture](/architecture)** — system layers, [stack](/architecture/stack), [frontend](/architecture/frontend), [backend](/architecture/backend), [data](/architecture/data), [infrastructure](/architecture/infrastructure), and [SaaS model](/architecture/saas)
-- **[AI platform](/ai/closed-ai)** — closed AI, [conversation design](/ai/conversation), [models](/ai/models), [knowledge](/ai/knowledge), and [governance](/ai/governance)
-- **[Core engines](/engines/decision-trees)** — decision trees, [catalog](/engines/decision-trees/catalog), [mediation](/engines/mediation), [evidence](/engines/evidence), [negotiation](/engines/negotiation), and [agreements](/engines/agreements)
-- **[Safety, security, and privacy](/safety/escalation)** — escalation, [human review](/safety/human-review), [security](/safety/security), [privacy](/safety/privacy), and [AI security](/safety/ai-security)
-- **[Experience](/experience/user-journey)** — end-to-end user journey
-- **[Roadmap](/roadmap/mvp)** — MVP, [later phases](/roadmap/phases), and [delivery plan](/roadmap/plan)
-- **[Reference](/legal)** — legal disclaimer and [cited sources](/sources)
-
-Edit the Markdown/MDX files in `content/docs` to update the research. Add a matching entry in `content/sidebar.ts` to include a new page in navigation.
+The platform’s product vision is translated into the following [core capabilities](/capabilities), creating a structured end-to-end journey from initial onboarding and information gathering through AI-assisted mediation, professional escalation, settlement, filing preparation, and post-divorce management.

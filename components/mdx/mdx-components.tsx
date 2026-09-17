@@ -91,7 +91,10 @@ export const mdxComponents = {
   hr: (props) => <hr className="my-12 border-gray-200" {...props} />,
   table: ({ children, ...props }) => (
     <div className="mb-8 overflow-x-auto rounded-xl border border-gray-200 bg-gray-50">
-      <table className="w-full min-w-[40rem] border-collapse text-sm" {...props}>
+      <table
+        className="w-full min-w-[34rem] border-collapse text-sm [&_td:first-child]:w-10 [&_th:first-child]:w-10"
+        {...props}
+      >
         {children}
       </table>
     </div>
