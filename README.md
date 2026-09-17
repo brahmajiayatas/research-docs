@@ -1,6 +1,6 @@
 # Ayatas Divorce Mediation Docs
 
-Next.js documentation website for the AI-assisted divorce mediation platform research.
+Next.js documentation website for the AI-Assisted Divorce Mediation Platform.
 
 ## Content
 
