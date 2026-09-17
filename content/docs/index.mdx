@@ -5,7 +5,7 @@ description: The proposed product is an AI-assisted divorce mediation platform t
 
 ## Product vision
 
-A useful reference point is [Divorce.ai](https://divorce.ai/how-it-works?utm_source=chatgpt.com), which uses guided onboarding and structured workflows to simplify the divorce process. This product can go substantially further by combining decision trees + a controlled/closed AI layer + evidence management + negotiation workflows + human mediator escalation.
+A useful reference point is [Divorce.ai](https://divorce.ai/how-it-works), which uses guided onboarding and structured workflows to simplify the divorce process. This product can go substantially further by combining decision trees + a controlled/closed AI layer + evidence management + negotiation workflows + human mediator escalation.
 
 ## Architectural principle
 
@@ -13,19 +13,19 @@ The important architectural principle should be:
 
 **AI assists the mediation process; it does not decide the outcome, provide unauthorized legal advice, or determine what either spouse should accept.**
 
-The system should preserve party self-determination and procedural fairness. For example, California's mediation rules emphasize balanced participation and uncoerced decisions. See [California Courts](https://courts.ca.gov/cms/rules/index/three/rule3_857?utm_source=chatgpt.com).
+The system should preserve party self-determination and procedural fairness. For example, California's mediation rules emphasize balanced participation and uncoerced decisions. See [California Courts](https://courts.ca.gov/cms/rules/index/three/rule3_857).
 
 ## How this documentation is organized
 
 This documentation is grouped by topic so the original research can be read as a product and technical reference:
 
-- **Overview** — vision, positioning, and product principles
-- **Architecture** — system layers, stack, data, infrastructure, and SaaS model
-- **AI platform** — closed AI, conversation design, models, knowledge, and governance
-- **Core engines** — decision trees, mediation, evidence, negotiation, and agreements
-- **Safety, security, and privacy** — escalation, human review, security, privacy, and AI security
-- **Experience** — end-to-end user journey
-- **Roadmap** — MVP, later phases, and delivery plan
-- **Reference** — legal statements from the research and cited sources
+- **[Overview](/)** — vision, [positioning](/overview/positioning), and [product principles](/overview/principles)
+- **[Architecture](/architecture)** — system layers, [stack](/architecture/stack), [frontend](/architecture/frontend), [backend](/architecture/backend), [data](/architecture/data), [infrastructure](/architecture/infrastructure), and [SaaS model](/architecture/saas)
+- **[AI platform](/ai/closed-ai)** — closed AI, [conversation design](/ai/conversation), [models](/ai/models), [knowledge](/ai/knowledge), and [governance](/ai/governance)
+- **[Core engines](/engines/decision-trees)** — decision trees, [catalog](/engines/decision-trees/catalog), [mediation](/engines/mediation), [evidence](/engines/evidence), [negotiation](/engines/negotiation), and [agreements](/engines/agreements)
+- **[Safety, security, and privacy](/safety/escalation)** — escalation, [human review](/safety/human-review), [security](/safety/security), [privacy](/safety/privacy), and [AI security](/safety/ai-security)
+- **[Experience](/experience/user-journey)** — end-to-end user journey
+- **[Roadmap](/roadmap/mvp)** — MVP, [later phases](/roadmap/phases), and [delivery plan](/roadmap/plan)
+- **[Reference](/legal)** — legal disclaimer and [cited sources](/sources)
 
 Edit the Markdown/MDX files in `content/docs` to update the research. Add a matching entry in `content/sidebar.ts` to include a new page in navigation.

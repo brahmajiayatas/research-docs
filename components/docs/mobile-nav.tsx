@@ -1,29 +1,50 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Brand } from "@/components/docs/brand";
 import { SidebarNav } from "@/components/docs/sidebar-nav";
 import type { SidebarSection } from "@/content/sidebar";
 
 export function MobileNav({ sections }: { sections: SidebarSection[] }) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+
+    const trigger = triggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
     };
   }, [open]);
 
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
-        className="inline-flex size-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-hover hover:text-foreground lg:hidden"
+        className="inline-flex size-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-gray-100 hover:text-foreground lg:hidden"
         onClick={() => setOpen(true)}
         aria-label="Open documentation menu"
+        aria-expanded={open}
+        aria-controls="mobile-docs-menu"
       >
-        <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+        <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
       </button>
@@ -35,16 +56,25 @@ export function MobileNav({ sections }: { sections: SidebarSection[] }) {
             aria-label="Close documentation menu"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 flex w-[min(20rem,88vw)] flex-col border-r border-border bg-elevated">
-            <div className="flex items-center justify-between border-b border-border px-4 py-4">
-              <Brand compact />
+          <div
+            id="mobile-docs-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            className="absolute inset-y-0 left-0 flex w-[min(20rem,88vw)] flex-col border-r border-gray-200 bg-gray-50"
+          >
+            <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
+              <div id={titleId}>
+                <Brand compact />
+              </div>
               <button
+                ref={closeRef}
                 type="button"
-                className="inline-flex size-8 items-center justify-center rounded-full text-muted hover:bg-hover hover:text-foreground"
+                className="inline-flex size-8 items-center justify-center rounded-full text-muted hover:bg-gray-100 hover:text-foreground"
                 onClick={() => setOpen(false)}
                 aria-label="Close documentation menu"
               >
-                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                   <path d="M6 6l12 12M18 6 6 18" />
                 </svg>
               </button>

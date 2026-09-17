@@ -3,7 +3,7 @@ import { site } from "@/content/sidebar";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
-    <Link href="/" className="flex min-w-0 items-center gap-3">
+    <Link href="/" className="flex min-w-0 items-center gap-3" aria-label={`${site.name} documentation home`}>
       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground font-display text-[15px] leading-none text-background">
         A
       </span>

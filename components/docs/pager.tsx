@@ -11,7 +11,7 @@ export function Pager({
   if (!previous && !next) return null;
 
   return (
-    <nav aria-label="Page" className="mt-20 grid gap-3 border-t border-border/80 pt-8 sm:grid-cols-2">
+    <nav aria-label="Page" className="flex items-center justify-between gap-2">
       {previous ? (
         <PagerLink href={previous.href} label="Previous" title={previous.title} />
       ) : (
@@ -39,24 +39,24 @@ function PagerLink({
     <Link
       href={href}
       className={cn(
-        "group rounded-xl border border-border/80 bg-surface px-4 py-4 transition-colors hover:border-accent/30 hover:bg-elevated",
-        align === "right" && "text-right sm:justify-self-end sm:w-full",
+        "inline-flex max-w-[48%] items-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1.5 text-foreground transition-colors hover:bg-gray-100",
+        align === "right" && "ml-auto",
       )}
     >
-      <div className="text-[11px] tracking-[0.14em] text-subtle uppercase">{label}</div>
-      <div className={cn("mt-1.5 flex items-center gap-2 font-medium text-foreground", align === "right" && "justify-end")}>
-        {align === "left" && (
-          <svg viewBox="0 0 16 16" className="size-3.5 text-subtle transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-            <path d="M10 3 5 8l5 5" />
-          </svg>
-        )}
-        <span>{title}</span>
-        {align === "right" && (
-          <svg viewBox="0 0 16 16" className="size-3.5 text-subtle transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-            <path d="M6 3l5 5-5 5" />
-          </svg>
-        )}
-      </div>
+      {align === "left" && (
+        <svg viewBox="0 0 16 16" className="size-3 shrink-0 text-subtle" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+          <path d="M10 3 5 8l5 5" />
+        </svg>
+      )}
+      <span className="min-w-0">
+        <span className="block text-[9px] leading-none tracking-[0.12em] text-subtle uppercase">{label}</span>
+        <span className="mt-0.5 block truncate text-xs font-medium">{title}</span>
+      </span>
+      {align === "right" && (
+        <svg viewBox="0 0 16 16" className="size-3 shrink-0 text-subtle" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+          <path d="M6 3l5 5-5 5" />
+        </svg>
+      )}
     </Link>
   );
 }

@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import type { MDXComponents } from "mdx/types";
-import { Pre } from "@/components/mdx/pre";
+import Link from "next/link";
 
 function heading(Tag: "h2" | "h3" | "h4", className: string) {
   return function Heading({
@@ -11,7 +11,7 @@ function heading(Tag: "h2" | "h3" | "h4", className: string) {
     return (
       <Tag id={id} className={className} {...props}>
         {id ? (
-          <a href={`#${id}`} className="no-underline text-inherit hover:text-accent">
+          <a href={`#${id}`} className="text-inherit no-underline hover:text-accent">
             {children}
           </a>
         ) : (
@@ -22,31 +22,34 @@ function heading(Tag: "h2" | "h3" | "h4", className: string) {
   };
 }
 
+const linkClassName =
+  "font-medium text-accent underline decoration-accent/30 underline-offset-[5px] transition-colors hover:decoration-accent";
+
 export const mdxComponents = {
   h2: heading(
     "h2",
-    "scroll-mt-28 mt-12 mb-4 border-t border-border/70 pt-8 font-display text-[1.65rem] leading-snug font-medium tracking-[-0.02em] text-foreground",
+    "scroll-mt-32 mt-12 mb-4 border-t border-gray-200 pt-8 font-display text-[1.65rem] leading-snug font-medium tracking-[-0.02em] text-foreground",
   ),
   h3: heading(
     "h3",
-    "scroll-mt-28 mt-9 mb-3 text-lg font-medium tracking-tight text-foreground",
+    "scroll-mt-32 mt-9 mb-3 text-lg font-medium tracking-tight text-foreground",
   ),
   h4: heading(
     "h4",
-    "scroll-mt-28 mt-7 mb-2 text-base font-medium tracking-tight text-foreground",
+    "scroll-mt-32 mt-7 mb-2 text-base font-medium tracking-tight text-foreground",
   ),
   p: ({ children, ...props }) => (
-    <p className="mb-5 text-[15.5px] leading-8 text-pretty text-muted" {...props}>
+    <p className="mb-5 text-[15.5px] leading-8 text-pretty text-foreground" {...props}>
       {children}
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="mb-5 list-disc space-y-2 pl-6 text-[15.5px] leading-8 text-muted marker:text-subtle" {...props}>
+    <ul className="mb-5 list-disc space-y-2 pl-6 text-[15.5px] leading-8 text-foreground marker:text-subtle" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="mb-5 list-decimal space-y-2 pl-6 text-[15.5px] leading-8 text-muted marker:text-subtle" {...props}>
+    <ol className="mb-5 list-decimal space-y-2 pl-6 text-[15.5px] leading-8 text-foreground marker:text-subtle" {...props}>
       {children}
     </ol>
   ),
@@ -55,15 +58,23 @@ export const mdxComponents = {
       {children}
     </li>
   ),
-  a: ({ children, href, ...props }) => (
-    <a
-      href={href}
-      className="font-medium text-accent underline decoration-accent/30 underline-offset-[5px] transition-colors hover:decoration-accent"
-      {...props}
-    >
-      {children}
-    </a>
-  ),
+  a: ({ children, href = "/" }) => {
+    const external = href.startsWith("http://") || href.startsWith("https://");
+
+    if (external) {
+      return (
+        <a href={href} className={linkClassName} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      );
+    }
+
+    return (
+      <Link href={href} className={linkClassName}>
+        {children}
+      </Link>
+    );
+  },
   strong: ({ children, ...props }) => (
     <strong className="font-semibold text-foreground" {...props}>
       {children}
@@ -71,22 +82,22 @@ export const mdxComponents = {
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="mb-6 border-l border-accent/50 bg-accent-soft/40 py-1 pl-5 text-[15.5px] leading-8 text-foreground [&_p]:mb-0"
+      className="mb-6 border-l border-gray-200 bg-gray-50 py-1 pl-5 text-[15.5px] leading-8 text-foreground [&_p]:mb-0"
       {...props}
     >
       {children}
     </blockquote>
   ),
-  hr: (props) => <hr className="my-12 border-border/80" {...props} />,
+  hr: (props) => <hr className="my-12 border-gray-200" {...props} />,
   table: ({ children, ...props }) => (
-    <div className="mb-8 overflow-x-auto rounded-xl border border-border/80 bg-surface">
+    <div className="mb-8 overflow-x-auto rounded-xl border border-gray-200 bg-gray-50">
       <table className="w-full min-w-[40rem] border-collapse text-sm" {...props}>
         {children}
       </table>
     </div>
   ),
   thead: ({ children, ...props }) => (
-    <thead className="bg-hover text-left text-foreground" {...props}>
+    <thead className="bg-gray-50 text-left text-foreground" {...props}>
       {children}
     </thead>
   ),
@@ -96,7 +107,7 @@ export const mdxComponents = {
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border-t border-border/80 px-4 py-3 align-top text-muted first:font-medium first:text-foreground" {...props}>
+    <td className="border-t border-gray-200 px-4 py-3 align-top text-foreground first:font-medium" {...props}>
       {children}
     </td>
   ),
@@ -107,7 +118,7 @@ export const mdxComponents = {
         className={
           isBlock
             ? `font-mono text-[0.84em] ${className ?? ""}`
-            : "rounded-[5px] bg-hover px-1.5 py-0.5 font-mono text-[0.84em] text-foreground"
+            : "rounded-[5px] bg-gray-50 px-1.5 py-0.5 font-mono text-[0.84em] text-foreground"
         }
         {...props}
       >
@@ -115,5 +126,12 @@ export const mdxComponents = {
       </code>
     );
   },
-  pre: Pre,
+  pre: ({ children, ...props }) => (
+    <pre
+      className="mb-7 overflow-x-auto rounded-xl border border-gray-200 bg-gray-50 p-5 font-mono text-[13px] leading-7 text-foreground [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-[13px] [&_code]:text-foreground"
+      {...props}
+    >
+      {children}
+    </pre>
+  ),
 } satisfies MDXComponents;

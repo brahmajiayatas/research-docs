@@ -50,6 +50,7 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
                   ? "border-accent text-foreground"
                   : "border-transparent text-muted hover:text-foreground",
               )}
+              aria-current={activeId === item.id ? "location" : undefined}
             >
               {item.title}
             </a>

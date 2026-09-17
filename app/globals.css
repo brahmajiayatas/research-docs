@@ -1,39 +1,20 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --background: #f6f3ee;
-  --foreground: #171512;
-  --muted: #6f6a63;
-  --subtle: #8b847b;
-  --border: #e3ddd4;
-  --hover: #ece7df;
-  --surface: #fbf9f5;
-  --elevated: #fffcf8;
-  --sidebar: #f1eee8;
-  --code: #161411;
-  --code-fg: #ece7dc;
-  --accent: #6e4f2f;
+  --background: #ffffff;
+  --foreground: #161513;
+  --muted: #3f3c38;
+  --subtle: #6a6660;
+  --border: #e4e0d9;
+  --hover: #f3f1ec;
+  --surface: #faf9f6;
+  --elevated: #ffffff;
+  --sidebar: #f9fafb;
+  --code: #f4f2ed;
+  --code-fg: #1c1a17;
+  --accent: #5c4228;
   --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
   --ring: color-mix(in srgb, var(--accent) 35%, transparent);
-}
-
-.dark {
-  --background: #0f0e0c;
-  --foreground: #f6f1e8;
-  --muted: #c0b9ae;
-  --subtle: #8a8378;
-  --border: #322e27;
-  --hover: #1c1914;
-  --surface: #161410;
-  --elevated: #1d1a15;
-  --sidebar: #12110e;
-  --code: #0a0908;
-  --code-fg: #e9e2d4;
-  --accent: #d7b48a;
-  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
-  --ring: color-mix(in srgb, var(--accent) 42%, transparent);
 }
 
 @theme inline {
@@ -61,19 +42,31 @@ html {
   color-scheme: light;
 }
 
-html.dark {
-  color-scheme: dark;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-::selection {
-  background: var(--accent-soft);
-  color: var(--foreground);
+html,
+body,
+img,
+svg,
+video,
+canvas,
+pre,
+code {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 :focus-visible {

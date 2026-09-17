@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { cache } from "react";
 import type { ReactElement } from "react";
 import GithubSlugger from "github-slugger";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -47,11 +48,27 @@ export function hrefToFile(href: string): string {
   const slugPath = href.replace(/^\//, "");
   const file = path.join(CONTENT_DIR, `${slugPath}.mdx`);
   if (fs.existsSync(file)) return file;
-  return path.join(CONTENT_DIR, slugPath, "index.mdx");
+  const indexFile = path.join(CONTENT_DIR, slugPath, "index.mdx");
+  if (fs.existsSync(indexFile)) return indexFile;
+  throw new Error(`Missing documentation file for ${href}`);
+}
+
+export function isKnownHref(href: string): boolean {
+  return flattenSidebar().some((item) => item.href === href);
 }
 
 export function getSidebar(): SidebarSection[] {
   return sidebar;
+}
+
+function headingText(raw: string): string {
+  return raw
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .trim();
 }
 
 export function extractToc(source: string): TocItem[] {
@@ -62,7 +79,7 @@ export function extractToc(source: string): TocItem[] {
 
   for (const match of body.matchAll(headingPattern)) {
     const depth = match[1].length as 2 | 3;
-    const title = match[2].replace(/`/g, "").trim();
+    const title = headingText(match[2]);
     items.push({
       id: slugger.slug(title),
       title,
@@ -73,12 +90,8 @@ export function extractToc(source: string): TocItem[] {
   return items;
 }
 
-export async function getDoc(href: string): Promise<DocPage> {
+export const getDoc = cache(async function getDoc(href: string): Promise<DocPage> {
   const file = hrefToFile(href);
-  if (!fs.existsSync(file)) {
-    throw new Error(`Missing documentation file: ${file}`);
-  }
-
   const source = fs.readFileSync(file, "utf8");
   const { content, frontmatter } = await compileMDX<DocFrontmatter>({
     source,
@@ -103,7 +116,7 @@ export async function getDoc(href: string): Promise<DocPage> {
     content,
     toc: extractToc(source),
   };
-}
+});
 
 export function getPager(href: string) {
   const items = flattenSidebar();
@@ -119,16 +132,22 @@ export function getBreadcrumbs(href: string) {
   const current = items.find((item) => item.href === href);
   if (!current) return [];
 
-  const section = sidebar.find((entry) => entry.title === current.section);
-  const crumbs = [{ title: "Docs", href: "/" }];
-  if (href !== "/" && section) {
-    crumbs.push({ title: current.section, href: section.items[0]?.href ?? "/" });
+  const crumbs: Array<{ title: string; href: string }> = [];
+  if (href !== "/") {
+    crumbs.push({ title: "Docs", href: "/" });
   }
+
+  const section = sidebar.find((entry) => entry.title === current.section);
+  const sectionHome = section?.items[0]?.href;
+  if (href !== "/" && section && sectionHome && sectionHome !== href) {
+    crumbs.push({ title: section.title, href: sectionHome });
+  }
+
   crumbs.push({ title: current.title, href });
   return crumbs;
 }
 
 export function findHref(slug?: string[]) {
-  if (!slug || slug.length === 0) return "/";
-  return `/${slug.join("/")}`;
+  const href = !slug || slug.length === 0 ? "/" : `/${slug.join("/")}`;
+  return isKnownHref(href) ? href : null;
 }

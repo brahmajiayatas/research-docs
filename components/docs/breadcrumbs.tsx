@@ -20,7 +20,9 @@ export function Breadcrumbs({
                 </svg>
               )}
               {last ? (
-                <span className="text-foreground">{item.title}</span>
+                <span className="text-foreground" aria-current="page">
+                  {item.title}
+                </span>
               ) : (
                 <Link href={item.href} className="transition-colors hover:text-foreground">
                   {item.title}

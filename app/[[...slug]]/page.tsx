@@ -29,6 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const href = findHref(slug);
+  if (!href) return { title: "Not found" };
   try {
     const doc = await getDoc(href);
     return {
@@ -47,8 +48,9 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const href = findHref(slug);
-  let doc;
+  if (!href) notFound();
 
+  let doc;
   try {
     doc = await getDoc(href);
   } catch {
@@ -62,6 +64,7 @@ export default async function Page({
     <DocsShell
       sections={sidebar}
       toc={<TableOfContents items={doc.toc} />}
+      pager={<Pager previous={pager.previous} next={pager.next} />}
     >
       <article className="mx-auto max-w-[42rem]">
         <Breadcrumbs items={breadcrumbs} />
@@ -79,12 +82,11 @@ export default async function Page({
           <div className="mb-10" />
         )}
         {doc.toc.length > 0 && (
-          <div className="mb-10 rounded-xl border border-border/80 bg-surface px-4 py-4 xl:hidden">
+          <div className="mb-10 rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 xl:hidden">
             <TableOfContents items={doc.toc} />
           </div>
         )}
         {doc.content}
-        <Pager previous={pager.previous} next={pager.next} />
       </article>
     </DocsShell>
   );

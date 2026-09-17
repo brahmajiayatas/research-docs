@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ContentProtection } from "@/components/docs/content-protection";
 import { site } from "@/content/sidebar";
 import "./globals.css";
 
@@ -32,11 +32,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background font-sans text-foreground">
-        <ThemeProvider>{children}</ThemeProvider>
+        <a
+          href="#content"
+          className="bg-foreground text-background sr-only z-50 rounded-md px-3 py-2 focus:not-sr-only focus:absolute focus:top-3 focus:left-3"
+        >
+          Skip to content
+        </a>
+        <ContentProtection>{children}</ContentProtection>
       </body>
     </html>
   );
