@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f3ee;
+  --foreground: #171512;
+  --muted: #6f6a63;
+  --subtle: #8b847b;
+  --border: #e3ddd4;
+  --hover: #ece7df;
+  --surface: #fbf9f5;
+  --elevated: #fffcf8;
+  --sidebar: #f1eee8;
+  --code: #161411;
+  --code-fg: #ece7dc;
+  --accent: #6e4f2f;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --ring: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.dark {
+  --background: #0f0e0c;
+  --foreground: #f6f1e8;
+  --muted: #c0b9ae;
+  --subtle: #8a8378;
+  --border: #322e27;
+  --hover: #1c1914;
+  --surface: #161410;
+  --elevated: #1d1a15;
+  --sidebar: #12110e;
+  --code: #0a0908;
+  --code-fg: #e9e2d4;
+  --accent: #d7b48a;
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --ring: color-mix(in srgb, var(--accent) 42%, transparent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-hover: var(--hover);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-sidebar: var(--sidebar);
+  --color-code: var(--code);
+  --color-code-fg: var(--code-fg);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.docs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.docs-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.docs-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
 }

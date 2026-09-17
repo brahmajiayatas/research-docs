@@ -1,0 +1,28 @@
+---
+title: Infrastructure
+description: Suggested infrastructure for a modern SaaS implementation, with AWS/Azure customer-managed encryption keys and private networking for highly sensitive enterprise deployments.
+---
+
+## Suggested infrastructure
+
+For a modern SaaS implementation:
+
+| Area | Recommendation |
+| --- | --- |
+| Frontend | Next.js, Vercel |
+| Backend | NestJS, AWS / Azure |
+| Database | PostgreSQL |
+| Cache | Redis |
+| Storage | AWS S3 |
+| Search | PostgreSQL + pgvector |
+| Queue | BullMQ / Redis |
+| AI | AI Gateway + enterprise LLM APIs |
+| Document Processing | Python services |
+| Monitoring | OpenTelemetry, Datadog / Grafana |
+| Authentication | Auth0 / Clerk / custom enterprise IAM |
+| Payments | Stripe |
+| Email | Postmark / SendGrid |
+| SMS | Twilio |
+| E-signature | DocuSign / Dropbox Sign |
+
+For highly sensitive enterprise deployments, AWS/Azure infrastructure with customer-managed encryption keys and private networking is worth considering.

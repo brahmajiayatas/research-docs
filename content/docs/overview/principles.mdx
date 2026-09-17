@@ -1,0 +1,118 @@
+---
+title: Product principles
+description: Structure the platform around humans, the mediation process, decision trees, professional escalation, and controlled AI. Never invert this architecture so that an LLM decides and the user merely receives the decision.
+---
+
+## Product hierarchy
+
+Structure the platform around this hierarchy:
+
+```
+                    HUMAN
+                      │
+                      ▼
+              MEDIATION PROCESS
+                      │
+            ┌─────────┴─────────┐
+            ▼                   ▼
+      DECISION TREES        PROFESSIONAL
+            │                ESCALATION
+            ▼
+       CONTROLLED AI
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+    RAG       AI REASONING
+      │           │
+      └─────┬─────┘
+            ▼
+       STRUCTURED OUTPUT
+            │
+            ▼
+        USER REVIEW
+            │
+            ▼
+        USER DECISION
+```
+
+Never invert this architecture.
+
+You do not want:
+
+```
+LLM
+ ↓
+Decision
+ ↓
+User
+```
+
+You want:
+
+```
+Rules + Evidence + AI Assistance
+ ↓
+Options
+ ↓
+Human Decision
+```
+
+That distinction is fundamental to the product.
+
+## 10/10 product blueprint
+
+The strongest version of this product is not simply "Divorce.ai with a chatbot."
+
+It should become a:
+
+**Decision-driven AI mediation operating system for divorce and family-law dispute resolution.**
+
+The defensible intellectual property is the combination of:
+
+Decision Trees + Mediation State Machine + Controlled AI + Jurisdiction Knowledge Graph + Evidence Engine + Negotiation Engine + Human Escalation + Auditability.
+
+## Core intellectual architecture
+
+```
+CASE
+ ↓
+ELIGIBILITY
+ ↓
+JURISDICTION
+ ↓
+DISCLOSURE
+ ↓
+ISSUE IDENTIFICATION
+ ↓
+EVIDENCE
+ ↓
+FACT VALIDATION
+ ↓
+POSITION
+ ↓
+INTEREST
+ ↓
+OPTIONS
+ ↓
+PROPOSAL
+ ↓
+COUNTERPROPOSAL
+ ↓
+NEGOTIATION
+ ↓
+ESCALATION IF REQUIRED
+ ↓
+RESOLUTION
+ ↓
+AGREEMENT
+ ↓
+PROFESSIONAL REVIEW
+ ↓
+EXECUTION
+```
+
+This approach also gives Ayatas a reusable platform architecture: the same decision-tree + controlled-AI + workflow + evidence + human-escalation framework can later be adapted to other structured dispute-resolution products.
+
+For AI governance, use NIST's AI RMF/Generative AI Profile as a design reference, and use the current OWASP GenAI guidance for application-level threats.
+
+One critical product/legal recommendation: before launching in a jurisdiction, have qualified family-law professionals review the decision trees, legal knowledge base, disclosures, escalation rules, generated documents, privacy model, and claims made by the product. The software architecture can be standardized, but the legal workflow should remain jurisdiction-specific and version-controlled.

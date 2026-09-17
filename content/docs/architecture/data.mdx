@@ -1,0 +1,50 @@
+---
+title: Data model
+description: PostgreSQL is the primary relational database. Use pgvector inside PostgreSQL initially to avoid another infrastructure dependency.
+---
+
+## PostgreSQL
+
+Primary relational database.
+
+Core tables:
+
+- `users`
+- `cases`
+- `case_parties`
+- `children`
+- `assets`
+- `liabilities`
+- `income`
+- `expenses`
+- `properties`
+- `business_interests`
+- `retirement_accounts`
+- `documents`
+- `evidence`
+- `issues`
+- `positions`
+- `proposals`
+- `counterproposals`
+- `agreements`
+- `decision_tree_sessions`
+- `decision_tree_answers`
+- `ai_interactions`
+- `messages`
+- `notifications`
+- `audit_logs`
+- `consents`
+- `jurisdiction_rules`
+- `legal_sources`
+
+## Vector database
+
+Use pgvector inside PostgreSQL initially.
+
+This avoids unnecessarily introducing another infrastructure dependency.
+
+Later, if scale requires it:
+
+- Pinecone
+- Weaviate
+- Qdrant

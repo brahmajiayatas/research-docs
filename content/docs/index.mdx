@@ -1,0 +1,31 @@
+---
+title: Introduction
+description: The proposed product is an AI-assisted divorce mediation platform that helps separating couples organize information, identify disputed issues, exchange proposals, understand options, and work toward mutually accepted agreements through a structured digital mediation process.
+---
+
+## Product vision
+
+A useful reference point is [Divorce.ai](https://divorce.ai/how-it-works?utm_source=chatgpt.com), which uses guided onboarding and structured workflows to simplify the divorce process. This product can go substantially further by combining decision trees + a controlled/closed AI layer + evidence management + negotiation workflows + human mediator escalation.
+
+## Architectural principle
+
+The important architectural principle should be:
+
+**AI assists the mediation process; it does not decide the outcome, provide unauthorized legal advice, or determine what either spouse should accept.**
+
+The system should preserve party self-determination and procedural fairness. For example, California's mediation rules emphasize balanced participation and uncoerced decisions. See [California Courts](https://courts.ca.gov/cms/rules/index/three/rule3_857?utm_source=chatgpt.com).
+
+## How this documentation is organized
+
+This documentation is grouped by topic so the original research can be read as a product and technical reference:
+
+- **Overview** — vision, positioning, and product principles
+- **Architecture** — system layers, stack, data, infrastructure, and SaaS model
+- **AI platform** — closed AI, conversation design, models, knowledge, and governance
+- **Core engines** — decision trees, mediation, evidence, negotiation, and agreements
+- **Safety, security, and privacy** — escalation, human review, security, privacy, and AI security
+- **Experience** — end-to-end user journey
+- **Roadmap** — MVP, later phases, and delivery plan
+- **Reference** — legal statements from the research and cited sources
+
+Edit the Markdown/MDX files in `content/docs` to update the research. Add a matching entry in `content/sidebar.ts` to include a new page in navigation.

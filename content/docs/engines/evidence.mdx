@@ -1,0 +1,84 @@
+---
+title: Evidence and documents
+description: Users upload financial and case documents. AI-extracted financial values should never automatically become authoritative facts.
+---
+
+## Evidence engine
+
+Users should be able to upload:
+
+- bank statements
+- mortgage statements
+- tax documents
+- pay stubs
+- retirement statements
+- property documents
+- business documents
+- insurance documents
+- childcare expenses
+
+The system performs:
+
+```
+Upload
+ ↓
+Virus Scan
+ ↓
+OCR
+ ↓
+Document Classification
+ ↓
+Metadata Extraction
+ ↓
+Entity Extraction
+ ↓
+Evidence Index
+ ↓
+Human Confirmation
+```
+
+**Important:** AI-extracted financial values should never automatically become authoritative facts.
+
+Use:
+
+```
+AI Extracted
+→ User Confirmed
+→ Mediator Reviewed
+→ Finalized
+```
+
+## AI document intelligence
+
+Create specialized AI functions:
+
+### Financial extractor
+
+Extract:
+
+- income
+- balances
+- debts
+- assets
+
+### Document classifier
+
+Classify uploaded documents.
+
+### Evidence summarizer
+
+Produce concise summaries.
+
+### Contradiction detector
+
+Example:
+
+Party A says: House value = $800,000
+
+Uploaded appraisal: $725,000
+
+System flags:
+
+> "Potential discrepancy detected."
+
+It should **not** determine which figure is correct.

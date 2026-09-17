@@ -1,0 +1,39 @@
+---
+title: System overview
+description: The platform should have six major layers. The key architectural decision is not allowing the LLM to control the entire application. The LLM should be one component inside a deterministic system.
+---
+
+## Six major layers
+
+```
+┌───────────────────────────────────────────┐
+│              USER EXPERIENCE              │
+│ Web / Mobile / Chat / Dashboard          │
+└────────────────────┬──────────────────────┘
+                     │
+┌────────────────────▼──────────────────────┐
+│           MEDIATION ORCHESTRATOR          │
+│ Workflow + State + Decision Trees         │
+└────────────────────┬──────────────────────┘
+                     │
+        ┌────────────┴─────────────┐
+        ▼                          ▼
+┌───────────────┐          ┌────────────────┐
+│ CLOSED AI     │          │ RULE ENGINE    │
+│ Layer         │          │ / Decision Tree│
+└───────────────┘          └────────────────┘
+        │                          │
+        └────────────┬─────────────┘
+                     ▼
+┌───────────────────────────────────────────┐
+│ CASE / EVIDENCE / DOCUMENT ENGINE         │
+└────────────────────┬──────────────────────┘
+                     │
+┌────────────────────▼──────────────────────┐
+│ SECURITY / AUDIT / COMPLIANCE             │
+└───────────────────────────────────────────┘
+```
+
+The key architectural decision is **not allowing the LLM to control the entire application**.
+
+The LLM should be one component inside a deterministic system.

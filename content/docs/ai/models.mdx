@@ -1,0 +1,43 @@
+---
+title: Model stack
+description: Use a model-agnostic AI gateway. The application should not depend on a single model vendor.
+---
+
+## Model-agnostic gateway
+
+```
+Application
+     ↓
+AI Gateway
+     ↓
+Policy Engine
+     ↓
+Model Router
+ ┌───┼────────┐
+ ▼   ▼        ▼
+LLM A LLM B  Local Model
+```
+
+## Potential architecture
+
+### General reasoning
+
+Use a high-quality enterprise LLM through an API.
+
+### Classification
+
+Smaller model.
+
+### Extraction
+
+Specialized structured-output model.
+
+### Embeddings
+
+Embedding model.
+
+### Sensitive workloads
+
+Potentially deploy selected open-weight models inside your controlled infrastructure.
+
+The important point is that the application should **not depend on a single model vendor**.

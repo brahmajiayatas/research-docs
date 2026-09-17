@@ -1,0 +1,77 @@
+---
+title: RAG and legal knowledge
+description: Use Retrieval-Augmented Generation for approved knowledge. Do not allow the AI to independently learn the law from arbitrary internet content.
+---
+
+## RAG architecture
+
+Use Retrieval-Augmented Generation for approved knowledge.
+
+```
+Legal Source
+ ↓
+Document Processing
+ ↓
+Chunking
+ ↓
+Metadata
+ ↓
+Embedding
+ ↓
+Vector Store
+ ↓
+Retriever
+ ↓
+Reranker
+ ↓
+LLM
+```
+
+Metadata should include:
+
+- jurisdiction
+- state
+- county
+- topic
+- effective_date
+- source_type
+- source_url
+- version
+- review_status
+
+This allows:
+
+**California + child custody + current rule**
+
+rather than searching the entire knowledge base.
+
+## Legal knowledge management
+
+Do not allow the AI to independently "learn the law" from arbitrary internet content.
+
+Create a controlled legal knowledge pipeline:
+
+```
+Approved Source
+ ↓
+Legal Content Import
+ ↓
+Attorney Review
+ ↓
+Versioning
+ ↓
+Approval
+ ↓
+Production
+```
+
+Every rule should have:
+
+- Rule ID
+- Jurisdiction
+- Topic
+- Effective Date
+- Source
+- Reviewer
+- Approval Date
+- Version

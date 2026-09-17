@@ -1,0 +1,120 @@
+---
+title: Closed AI
+description: Do not build the product around a completely unrestricted chatbot. Create a Controlled Divorce AI that operates inside a closed knowledge domain, tools, workflows, outputs, data boundary, and model gateway.
+---
+
+## Controlled Divorce AI
+
+This is one of the most important parts of the product.
+
+Do not build the product around a completely unrestricted chatbot.
+
+Instead create a **Controlled Divorce AI**.
+
+Architecture:
+
+```
+User
+ ↓
+Input Validation
+ ↓
+Safety Classifier
+ ↓
+Intent Classification
+ ↓
+Decision Tree
+ ↓
+Knowledge Retrieval
+ ↓
+AI Reasoning
+ ↓
+Policy Guardrails
+ ↓
+Output Validator
+ ↓
+User
+```
+
+The AI should operate inside a controlled domain.
+
+## Example
+
+User:
+
+> "My wife is demanding $4,000 per month. What should I offer?"
+
+The AI should not simply answer:
+
+> "Offer $2,000."
+
+Instead:
+
+```
+Identify issue
+↓
+Determine jurisdiction
+↓
+Collect financial inputs
+↓
+Determine missing information
+↓
+Explain relevant factors
+↓
+Generate possible scenarios
+↓
+Ask whether parties want to negotiate
+↓
+Generate proposal options
+```
+
+This creates an AI-assisted mediation system rather than an AI divorce lawyer.
+
+## What "Closed AI" should mean
+
+For this product, define Closed AI as:
+
+### Closed knowledge domain
+
+Only approved sources.
+
+### Closed tools
+
+AI can access only approved functions.
+
+### Closed workflows
+
+AI cannot skip required mediation stages.
+
+### Closed outputs
+
+Certain output types are prohibited.
+
+### Closed data boundary
+
+Case information is isolated from unrelated users/cases.
+
+### Closed model gateway
+
+All AI requests pass through your own AI gateway.
+
+Example:
+
+```
+User
+ ↓
+AI Gateway
+ ↓
+Policy Engine
+ ↓
+Case Context
+ ↓
+Approved Knowledge
+ ↓
+LLM
+ ↓
+Output Validator
+ ↓
+Response
+```
+
+This approach also makes auditing considerably easier.
