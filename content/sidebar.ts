@@ -23,7 +23,7 @@ export const sidebar: SidebarSection[] = [
 ];
 
 export const site = {
-  name: "Ayatas",
+  name: "Ayatas Technologies",
   product: "AI-Assisted Divorce Mediation Platform",
   title: "Ayatas Divorce Mediation Docs",
   description:
